@@ -1,6 +1,8 @@
-// import { useState } from 'react'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import './App.css'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Projects from './pages/Projects'
+import ProjectsDetails from './pages/ProjectsDetails'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -11,7 +13,13 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <h1>Vite + React</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/projects" />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectsDetails />} />
+        </Routes>
+      </BrowserRouter>
     </ApolloProvider>
   )
 }
